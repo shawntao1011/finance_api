@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.1">Jekyll</generator><link href="http://localhost:4000/python-q/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/python-q/" rel="alternate" type="text/html" /><updated>2021-12-06T16:38:32+08:00</updated><id>http://localhost:4000/python-q/feed.xml</id><title type="html">python q</title><subtitle>My gitbook for docing q, kdb.
+</subtitle><author><name>Tao Sun</name></author><entry><title type="html">How to use qpython</title><link href="http://localhost:4000/python-q/qpython/2021-12-06-how-qpython.html" rel="alternate" type="text/html" title="How to use qpython" /><published>2021-12-06T16:36:00+08:00</published><updated>2021-12-06T16:36:00+08:00</updated><id>http://localhost:4000/python-q/qpython/how-qpython</id><content type="html" xml:base="http://localhost:4000/python-q/qpython/2021-12-06-how-qpython.html">&lt;h2 id=&quot;qpython-使用&quot;&gt;QPython 使用&lt;/h2&gt;
+
+&lt;h3 id=&quot;文档地址&quot;&gt;文档地址:&lt;/h3&gt;
+
+&lt;p&gt;https://qpython.readthedocs.io/en/latest/index.html&lt;/p&gt;
+
+&lt;h3 id=&quot;使用样例&quot;&gt;使用样例:&lt;/h3&gt;
+&lt;p&gt;q端：&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;q &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;filepath] &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;port]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;python端：&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;qpython&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;qconnection&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;q&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;qconnection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;QConnection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;host&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;port&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;{[x;y] select wind_code,date,ret from stock_daily where date within (x;y)}&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+             &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+             &lt;span class=&quot;n&quot;&gt;pandas&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;finally&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;or  recommended:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;qconnection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;QConnection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;host&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;port&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;{[x;y] select wind_code,date,ret from stock_daily where date within (x;y)}&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+             &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+             &lt;span class=&quot;n&quot;&gt;pandas&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Tao Sun</name></author><category term="qpython" /><summary type="html">QPython 使用</summary></entry><entry><title type="html">Why qpython</title><link href="http://localhost:4000/python-q/qpython/2021-12-06-why-qpython.html" rel="alternate" type="text/html" title="Why qpython" /><published>2021-12-06T16:30:00+08:00</published><updated>2021-12-06T16:30:00+08:00</updated><id>http://localhost:4000/python-q/qpython/why-qpython</id><content type="html" xml:base="http://localhost:4000/python-q/qpython/2021-12-06-why-qpython.html">&lt;h1 id=&quot;为什么使用-qpython&quot;&gt;为什么使用 qpython&lt;/h1&gt;
+&lt;p&gt;1.更快&lt;/p&gt;
+
+&lt;p&gt;    相比于使用 pyodbc来实现python对&lt;a href=&quot;http://www.timestored.com/kdb-guides/kdb-tick-data-store&quot;&gt;tdb&lt;/a&gt;数据的访问，使用qpython更加迅速。&lt;/p&gt;
+
+&lt;p&gt;2.支持嵌入q语句&lt;/p&gt;
+
+&lt;p&gt;    在实际运行中，需要在python端实现调用q脚本等操作，qpython支持q语言嵌入。&lt;/p&gt;
+
+&lt;p&gt;3.版本支持完善&lt;/p&gt;
+
+&lt;p&gt;    q的免费版本为32bit，而实际使用过程中，多使用64位的python，相较于其他python和q交互需要额外配置，qpython直接通过:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-cmd&quot;&gt;pip install qpython
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;4.多支持&lt;/p&gt;
+
+&lt;p&gt;    实际使用中，会有&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://qpython.readthedocs.io/en/latest/usage-examples.html&quot;&gt;q端下载数据后, 在python端计算的场景&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;python端下载python api数据，在python端计算的场景&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://stackoverflow.com/questions/59956842/how-can-i-commit-a-dataframe-to-kdb-as-a-new-table&quot;&gt;python端处理所有数据，在q端计算的场景&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;为了满足以上需求，qpython提供了 Qconnection方法，以便两端传递数据.&lt;/p&gt;</content><author><name>Tao Sun</name></author><category term="qpython" /><summary type="html">为什么使用 qpython 1.更快</summary></entry></feed>

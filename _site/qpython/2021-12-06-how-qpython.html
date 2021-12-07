@@ -1,0 +1,272 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    <head><meta charset="UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>How to use qpython · python q</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="description" content="My gitbook for docing q, kdb.
+"><meta name="generator" content="Jekyll (using style of GitBook 3.2.9)"><meta name="author" content="Tao Sun"><link rel="stylesheet" href="/python-q/gitbook/style.css">
+<link rel="stylesheet" href="/python-q/gitbook/gitbook-plugin-fontsettings/website.css">
+<!-- <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css"> -->
+
+<link rel="stylesheet" href="/python-q/gitbook/rouge-highlight-colorful.css">
+
+<meta name="HandheldFriendly" content="true"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/python-q/gitbook/images/apple-touch-icon-precomposed-152.png">
+<link rel="shortcut icon" href="/python-q/gitbook/images/favicon.ico" type="image/x-icon">
+
+
+            <link rel="prev" href="/python-q/qpython/2021-12-06-why-qpython.html" />
+        
+
+        
+    </head>
+    <body>
+        <div class="book"><div class="book-summary">
+    <!-- <div id="book-search-input" role="search">
+        <input type="text" placeholder="Type to search" />
+    </div> -->
+    <nav role="navigation">
+        <ul class="summary">
+            
+            <li class="chapter" data-level="1.1" data-path="/python-q">
+            
+                <a href="/python-q/">
+                    python q
+                </a>
+            </li>
+
+            <li class="divider"></li>
+
+            <!-- search link -->
+            <li>
+                <a href="/python-q/search">
+                    Search
+                </a>
+            </li>
+
+            <li class="divider"></li>
+            
+            
+                
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/python-q/qpython/2021-12-06-why-qpython.html">
+                    
+                        <a href="/python-q/qpython/2021-12-06-why-qpython.html">
+                            Why qpython
+                        </a>
+                        
+                            
+                        
+                    </li>
+                
+                    
+                    <li class="chapter active" data-level="1.2" data-path="/python-q/qpython/2021-12-06-how-qpython.html">
+                    
+                        <a href="/python-q/qpython/2021-12-06-how-qpython.html">
+                            How to use qpython
+                        </a>
+                        
+                            
+                                <ul><li><a href="#qpython-使用">QPython 使用</a><ul><li><a href="#文档地址">文档地址:</a></li><li><a href="#使用样例">使用样例:</a></li></ul></li></ul>
+
+                            
+                        
+                    </li>
+                
+
+                <li class="divider"></li>
+                
+            
+        </ul>
+    </nav>
+</div><div class="book-body"><div class="body-inner">
+    <div class="book-header" role="navigation">
+        <!-- Title -->
+        <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i>
+            
+                <a href="." >How to use qpython</a>
+            
+        </h1>
+    </div>
+    <div class="page-wrapper" tabindex="-1" role="main">
+        <div class="page-inner">
+            <div id="book-search-results">
+                <div class="search-noresults">
+                    <section class="normal markdown-section">
+
+                        
+                            <h1 id="/qpython/how-qpython">How to use qpython</h1>
+                        
+
+                        <h2 id="qpython-使用">QPython 使用</h2>
+
+<h3 id="文档地址">文档地址:</h3>
+
+<p>https://qpython.readthedocs.io/en/latest/index.html</p>
+
+<h3 id="使用样例">使用样例:</h3>
+<p>q端：</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>q <span class="o">[</span>filepath] <span class="nt">-p</span> <span class="o">[</span>port]
+</code></pre></div></div>
+
+<p>python端：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">qpython</span> <span class="kn">import</span> <span class="n">qconnection</span>
+
+<span class="n">q</span> <span class="o">=</span> <span class="n">qconnection</span><span class="p">.</span><span class="n">QConnection</span><span class="p">(</span><span class="n">host</span> <span class="o">=</span> <span class="p">[</span><span class="n">host</span><span class="p">],</span> <span class="n">port</span> <span class="o">=</span> <span class="p">[</span><span class="n">port</span><span class="p">])</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">q</span><span class="p">.</span><span class="nb">open</span><span class="p">()</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s">'{[x;y] select wind_code,date,ret from stock_daily where date within (x;y)}'</span><span class="p">,</span> 
+             <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> 
+             <span class="n">pandas</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">q</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>or  recommended:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">with</span> <span class="n">qconnection</span><span class="p">.</span><span class="n">QConnection</span><span class="p">(</span><span class="n">host</span> <span class="o">=</span> <span class="p">[</span><span class="n">host</span><span class="p">],</span> <span class="n">port</span> <span class="o">=</span> <span class="p">[</span><span class="n">port</span><span class="p">])</span> <span class="k">as</span> <span class="n">q</span><span class="p">:</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="s">'{[x;y] select wind_code,date,ret from stock_daily where date within (x;y)}'</span><span class="p">,</span> 
+             <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> 
+             <span class="n">pandas</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+
+                    </section>
+                </div>
+
+                 <!--<div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+                    <a href="/python-q/qpython/2021-12-06-why-qpython.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Why qpython">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+            </div>
+
+            <script>
+            var gitbook = gitbook || [];
+            gitbook.push(function() {
+                gitbook.page.hasChanged({
+    "page": {
+        "title": "Introduction",
+        "level": "1.1",
+        "depth": 1,
+        
+        "dir": "ltr"
+    },    "config": {
+        "plugins": ["fontsettings", "highlight", "livereload", "lunr", "search", "sharing", "theme-default", "livereload"],
+        "styles": {
+            "ebook": "styles/ebook.css",
+            "epub": "styles/epub.css",
+            "mobi": "styles/mobi.css",
+            "pdf": "styles/pdf.css",
+            "print": "styles/print.css",
+            "website": "styles/website.css"
+        },
+        "pluginsConfig": {
+            "fontsettings": {
+                "family": "sans",
+                "size": 2,
+                "theme": "white"
+            },
+            "highlight": {},
+            "livereload": {},
+            "lunr": {
+                "ignoreSpecialCharacters": false,
+                "maxIndexSize": 1000000
+            },
+            "search": {},
+            "sharing": {
+                "all": ["facebook", "google", "twitter", "weibo", "instapaper"],
+                "facebook": true,
+                "google": false,
+                "instapaper": false,
+                "twitter": true,
+                "vk": false,
+                "weibo": false
+            },
+            "theme-default": {
+                "showLevel": false,
+                "styles": {
+                    "ebook": "styles/ebook.css",
+                    "epub": "styles/epub.css",
+                    "mobi": "styles/mobi.css",
+                    "pdf": "styles/pdf.css",
+                    "print": "styles/print.css",
+                    "website": "styles/website.css"
+                }
+            }
+        },
+        "theme": "default",
+        "author": "Tao He",
+        "pdf": {
+            "pageNumbers": true,
+            "fontSize": 12,
+            "fontFamily": "Arial",
+            "paperSize": "a4",
+            "chapterMark": "pagebreak",
+            "pageBreaksBefore": "/",
+            "margin": {
+                "right": 62,
+                "left": 62,
+                "top": 56,
+                "bottom": 56
+            }
+        },
+        "structure": {
+            "langs": "LANGS.md",
+            "readme": "README.md",
+        },
+        "variables": {},
+        "title": "python q",
+        "language": "en",
+        "gitbook": "*"
+    },
+    "file": {
+        "path": "_posts/2021-12-06-how-qpython.md",
+        "mtime": "2021-12-06 16:36:00 +0800",
+        "type": "markdown"
+    },
+    "gitbook": {
+        "version": "3.2.9",
+        "time": "2021-12-06 16:38:32 +0800"
+    },
+    "basePath": "/python-q",
+    "book": {
+        "language": ""
+    }
+});
+            });
+            </script>
+        </div><script src="/python-q/gitbook/gitbook.js"></script>
+<script src="/python-q/gitbook/theme.js"></script>
+
+<script src="/python-q/gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+<script src="/python-q/gitbook/gitbook-plugin-sharing/buttons.js"></script>
+
+<!-- <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+<script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search.js"></script> -->
+
+</body>
+</html>
