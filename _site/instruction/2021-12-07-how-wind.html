@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Search ... · finance api</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Wind Instruction · finance api</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="My notes on using different apis available in china. 
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.9)"><meta name="author" content="Tao Sun"><link rel="stylesheet" href="/finance_api/gitbook/style.css">
 <link rel="stylesheet" href="/finance_api/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -16,12 +16,12 @@
 <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/finance_api/gitbook/images/apple-touch-icon-precomposed-152.png">
 <link rel="shortcut icon" href="/finance_api/gitbook/images/favicon.ico" type="image/x-icon">
 
-<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js"></script>
-    <link rel="stylesheet" href="/finance_api/assets/tipuesearch/css/tipuesearch.css">
 
             <link rel="prev" href="/finance_api/" />
         
 
+        
+            <link rel="next" href="/finance_api/instruction/2021-12-07-how-akshare.html" />
         
     </head>
     <body>
@@ -54,12 +54,15 @@
                 
                 
                     
-                    <li class="chapter" data-level="1.1" data-path="/finance_api/instruction/2021-12-07-how-wind.html">
+                    <li class="chapter active" data-level="1.2" data-path="/finance_api/instruction/2021-12-07-how-wind.html">
                     
                         <a href="/finance_api/instruction/2021-12-07-how-wind.html">
                             Wind Instruction
                         </a>
                         
+                            
+                                <ul><li><a href="#如何使用wind-api">如何使用wind API</a></li><li><a href="#wind-接口解读">Wind 接口解读</a></li></ul>
+
                             
                         
                     </li>
@@ -104,7 +107,7 @@
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >Search ...</a>
+                <a href="." >Wind Instruction</a>
             
         </h1>
     </div>
@@ -115,26 +118,51 @@
                     <section class="normal markdown-section">
 
                         
-                            <h1 id="">Search ...</h1>
+                            <h1 id="/instruction/how-wind">Wind Instruction</h1>
                         
 
-                        <form action="/finance_api/search/">
-    <div class="tipue_search_left">
-        <img src="/finance_api/assets/tipuesearch/search.png" class="tipue_search_icon">
-    </div>
-    <div class="tipue_search_right">
-        <input type="text" name="q" id="tipue_search_input" pattern=".{3,}" title="At least 3 characters" placeholder="type to search ..." required>
-    </div>
-    <div style="clear: both;"></div>
-</form>
+                        <h2 id="如何使用wind-api">如何使用wind API</h2>
+<ol>
+  <li>
+    <p>修复插件</p>
 
-<div id="tipue_search_content"></div>
+    <p>点击wind终端 左上角”我的” –&gt; “插件修复” –&gt; “修复python接口”</p>
+  </li>
+  <li>调用wind.start()
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kn">from</span> <span class="nn">WindPy</span> <span class="kn">import</span> <span class="n">w</span> <span class="k">as</span> <span class="n">wind</span>
+ <span class="n">wd</span> <span class="o">=</span> <span class="n">wind</span><span class="p">.</span><span class="n">start</span><span class="p">()</span>
+ <span class="k">assert</span> <span class="mi">0</span> <span class="o">==</span> <span class="n">wd</span><span class="p">.</span><span class="n">ErrorCode</span><span class="p">,</span>\
+         <span class="sa">f</span><span class="s">"WindQuantAPI login error </span><span class="si">{</span><span class="n">wd</span><span class="p">.</span><span class="n">ErrorCode</span><span class="si">}</span><span class="s">: </span><span class="si">{</span><span class="n">wd</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s">"</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>调用wind相关函数
+ 根据Wind CG(code generator) 生成相关函数的format，再自定义parse相关参数。</p>
 
-<script>
-$(document).ready(function() {
-  $('#tipue_search_input').tipuesearch();
-});
-</script>
+    <p>eg: 假设需要获取某个基金(000001.OF)的日收益率数据，
+ WIND CG中的代码示例则如下:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> w.wsd("000001.OF", "NAV_adj_return1", "2021-11-07", "2021-12-06", "")
+</code></pre></div>    </div>
+    <p>那么实际的python 代码为</p>
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">w</span><span class="p">.</span><span class="n">wsd</span><span class="p">(</span><span class="s">"000001.OF"</span><span class="p">,</span> <span class="s">"NAV_adj_return1"</span><span class="p">,</span> <span class="s">"2021-11-07"</span><span class="p">,</span> <span class="s">"2021-12-06"</span><span class="p">,</span> <span class="s">""</span><span class="p">,</span> <span class="n">usedfdt</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> 
+</code></pre></div>    </div>
+    <p>其中，usedfdt 参数用于 确保返回是一个pd.Dataframe 且 空的时间字段会作为pd.NaT返回，而不是dt.datetime(1899,12,31)</p>
+  </li>
+</ol>
+
+<h2 id="wind-接口解读">Wind 接口解读</h2>
+
+<p>    wind 的数据接口主要限制在三个维度:</p>
+<ol>
+  <li>Days</li>
+  <li>Indicators</li>
+  <li>WindCodes</li>
+</ol>
+
+<p><img src="C:\Users\tao.sun\AppData\Roaming\Typora\typora-user-images\image-20211207134715381.png" alt="image-20211207134715381" style="transform: rotate(-90deg); zoom: 25%;" /></p>
+
+<p>在单次的query中，在以上三个维度至少需要一个维度为 1(1天，1个变量或一个股票)。</p>
+
 
                     </section>
                 </div>
@@ -159,6 +187,10 @@ $(document).ready(function() {
                 
 
                 
+                    <a href="/finance_api/instruction/2021-12-07-how-akshare.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Akshare instruction">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
             </div>
 
             <script>
@@ -169,6 +201,15 @@ $(document).ready(function() {
         "title": "Introduction",
         "level": "1.1",
         "depth": 1,
+        
+        "next": {
+            "title": "Akshare instruction",
+            "level": "1.2",
+            "depth": 1,
+            "path": "_posts/akshare/2021-12-07-how-akshare.md",
+            "ref": "_posts/akshare/2021-12-07-how-akshare.md",
+            "articles": []
+        },
         
         "dir": "ltr"
     },    "config": {
@@ -241,8 +282,8 @@ $(document).ready(function() {
         "gitbook": "*"
     },
     "file": {
-        "path": "search.html",
-        "mtime": "",
+        "path": "_posts/wind/2021-12-07-how-wind.md",
+        "mtime": "2021-12-07 10:52:00 +0800",
         "type": "markdown"
     },
     "gitbook": {
@@ -267,8 +308,5 @@ $(document).ready(function() {
 <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
 <script src="../gitbook/gitbook-plugin-search/search.js"></script> -->
 
-<script src="/finance_api/assets/tipuesearch/tipuesearch_content.js"></script>
-    <script src="/finance_api/assets/tipuesearch/tipuesearch_set.js"></script>
-    <script src="/finance_api/assets/tipuesearch/tipuesearch.min.js"></script>
 </body>
 </html>

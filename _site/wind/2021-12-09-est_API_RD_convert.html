@@ -1,0 +1,394 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    <head><meta charset="UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>API RD difference · finance api</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="description" content="My notes on using different apis available in china. 
+"><meta name="generator" content="Jekyll (using style of GitBook 3.2.9)"><meta name="author" content="Tao Sun"><link rel="stylesheet" href="/finance_api/gitbook/style.css">
+<link rel="stylesheet" href="/finance_api/gitbook/gitbook-plugin-fontsettings/website.css">
+<!-- <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css"> -->
+
+<link rel="stylesheet" href="/finance_api/gitbook/rouge-highlight-colorful.css">
+
+<meta name="HandheldFriendly" content="true"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/finance_api/gitbook/images/apple-touch-icon-precomposed-152.png">
+<link rel="shortcut icon" href="/finance_api/gitbook/images/favicon.ico" type="image/x-icon">
+
+
+            <link rel="prev" href="/finance_api/instruction/2021-12-07-how-akshare.html" />
+        
+
+        
+    </head>
+    <body>
+        <div class="book"><div class="book-summary">
+    <!-- <div id="book-search-input" role="search">
+        <input type="text" placeholder="Type to search" />
+    </div> -->
+    <nav role="navigation">
+        <ul class="summary">
+            
+            <li class="chapter" data-level="1.1" data-path="/finance_api">
+            
+                <a href="/finance_api/">
+                    finance api
+                </a>
+            </li>
+
+            <li class="divider"></li>
+
+            <!-- search link -->
+            <li>
+                <a href="/finance_api/search">
+                    Search
+                </a>
+            </li>
+
+            <li class="divider"></li>
+            
+            
+                
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/finance_api/instruction/2021-12-07-how-wind.html">
+                    
+                        <a href="/finance_api/instruction/2021-12-07-how-wind.html">
+                            Wind Instruction
+                        </a>
+                        
+                            
+                        
+                    </li>
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/finance_api/instruction/2021-12-07-how-akshare.html">
+                    
+                        <a href="/finance_api/instruction/2021-12-07-how-akshare.html">
+                            Akshare instruction
+                        </a>
+                        
+                            
+                        
+                    </li>
+                
+
+                <li class="divider"></li>
+                
+            
+                
+                
+                    
+                    <li class="chapter active" data-level="1.2" data-path="/finance_api/wind/2021-12-09-est_API_RD_convert.html">
+                    
+                        <a href="/finance_api/wind/2021-12-09-est_API_RD_convert.html">
+                            API RD difference
+                        </a>
+                        
+                            
+                                <ul><li><a href="#est-一致预期数据">est 一致预期数据</a><ul><li><a href="#api">API</a></li><li><a href="#rd">RD</a></li></ul></li><li><a href="#转换代码">转换代码</a></li></ul>
+
+                            
+                        
+                    </li>
+                
+
+                <li class="divider"></li>
+                
+            
+        </ul>
+    </nav>
+</div><div class="book-body"><div class="body-inner">
+    <div class="book-header" role="navigation">
+        <!-- Title -->
+        <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i>
+            
+                <a href="." >API RD difference</a>
+            
+        </h1>
+    </div>
+    <div class="page-wrapper" tabindex="-1" role="main">
+        <div class="page-inner">
+            <div id="book-search-results">
+                <div class="search-noresults">
+                    <section class="normal markdown-section">
+
+                        
+                            <h1 id="/wind/est_API_RD_convert">API RD difference</h1>
+                        
+
+                        <h2 id="est-一致预期数据">est 一致预期数据</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wind API中的一致预期数据 和 RD中AShareEarningEst的数据格式 并不相符
+
+需要有代码做转换， 并且转换后数据并不完全等价
+</code></pre></div></div>
+
+<h3 id="api">API</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>一致预期数据需要使用 wset 进行下载
+</code></pre></div></div>
+
+<p><strong>参数列表</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>参数名称</th>
+      <th>参数值</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>startdate</td>
+      <td>20xx-xx-xx</td>
+    </tr>
+    <tr>
+      <td>endtdate</td>
+      <td>20xx-xx-xx</td>
+    </tr>
+    <tr>
+      <td>windcode</td>
+      <td>xxxxxx.SH(SZ)</td>
+    </tr>
+    <tr>
+      <td>organization</td>
+      <td>全部</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>输出字段</strong>
+| 中文名称 | 英文名称 |
+| – | – |
+| 预测日期 | date |
+| 研究机构 | organization |
+| <font color="red">研究员</font> | researcher |
+| 评级 | rating |
+| 目标价 | target_price |
+| 每股收益a0 | epsa0 |
+| 每股收益e1 | epse1 |
+| 每股收益e2 | epse2 |
+| 每股收益e3 | epse3 |
+| 营业总收入a0 | incomea0 |
+| 营业总收入e1 | incomee1 |
+| 营业总收入e2 | incomee2 |
+| 营业总收入e3 | incomee3 |
+| 净利润a0 | netprofita0 |
+| 净利润e1 | netprofite1 |
+| 净利润e2 | netprofite2 |
+| 净利润e3 | netprofite3 |
+| 市盈率a0 | pea0 |
+| 市盈率e1 | pee1 |
+| 市盈率e2 | pee2 |
+| 市盈率e3 | pee3 |
+| 净资产收益率a0 | roea0 |
+| 净资产收益率e1 | roee1 |
+| 净资产收益率e2 | roee2 |
+| 净资产收益率e3 | roee3 |
+| 最新年报年度 | _year |</p>
+
+<p>Sample code:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">err</span><span class="p">,</span> <span class="n">df</span> <span class="o">=</span> <span class="n">wind</span><span class="p">.</span><span class="n">wset</span><span class="p">(</span><span class="s">'stockwest'</span><span class="p">,</span><span class="sa">f</span><span class="s">"startdate=</span><span class="si">{</span><span class="n">start</span><span class="p">:</span><span class="o">%</span><span class="n">Y</span><span class="o">-%</span><span class="n">m</span><span class="o">-%</span><span class="n">d</span><span class="si">}</span><span class="s">;enddate=       </span><span class="si">{</span><span class="n">end</span><span class="p">:</span><span class="o">%</span><span class="n">Y</span><span class="o">-%</span><span class="n">m</span><span class="o">-%</span><span class="n">d</span><span class="si">}</span><span class="s">;windcode=</span><span class="si">{</span><span class="n">stock</span><span class="si">}</span><span class="s">;orgname=全部;</span><span class="se">\
+</span><span class="s">field=date,organization,researcher,epse1,epse2,epse3,netprofite1,netprofite2,netprofite3"</span><span class="p">,</span> <span class="n">usedfdt</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="rd">RD</h3>
+
+<p><strong>匹配字段名</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>字段名</th>
+      <th>对应API 字段</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>EST_DT</td>
+      <td>date</td>
+    </tr>
+    <tr>
+      <td>RESEARCH_INST_NAME</td>
+      <td>organization</td>
+    </tr>
+    <tr>
+      <td><font color="red">ANALYST_NAME</font></td>
+      <td>researcher</td>
+    </tr>
+    <tr>
+      <td>REPORTING_PERIOD</td>
+      <td>*e[123]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>多出字段</strong>
+| 字段名 | 字段名介绍 |
+| – | – |
+| EST_MAIN_BUS_INCE | 预测主营业务收入 |
+…..</p>
+
+<h4 id="转换规则"><strong>转换规则</strong></h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>在WIND API中的 epse[123] 数据 在RD中由"eps"部分和report_period列共同构建。
+
+即 假设是2020年的数据， 在API中 一行 三列的数据epse1, epse2 ,epse3
+
+会由 RD 中三行两列数据 数据 report_period: 2020 +1, 2020 +2 , 2020 +3 以及 eps ： val1, val2, val3 代替。
+</code></pre></div></div>
+
+<h2 id="转换代码">转换代码</h2>
+<p>Sample</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">reshape_wsetest</span><span class="p">(</span><span class="n">raw_df</span><span class="p">):</span>
+    <span class="s">'''
+    将wset 获取到的dataframe 转换成 RD 中 ashareearningest的格式
+    '''</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">raw_df</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">df</span><span class="p">[</span><span class="s">'eps'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s">'epse1'</span><span class="p">,</span><span class="s">'epse2'</span><span class="p">,</span><span class="s">'epse3'</span><span class="p">]].</span><span class="n">values</span><span class="p">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">df</span><span class="p">[</span><span class="s">'netprofit'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s">'netprofite1'</span><span class="p">,</span><span class="s">'netprofite2'</span><span class="p">,</span><span class="s">'netprofite3'</span><span class="p">]].</span><span class="n">values</span><span class="p">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">df</span><span class="p">[</span><span class="s">'report_period'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">date</span><span class="p">.</span><span class="nb">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span><span class="n">pd</span><span class="p">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">d</span><span class="p">,</span><span class="n">freq</span><span class="o">=</span><span class="s">'Y'</span><span class="p">,</span><span class="n">periods</span><span class="o">=</span><span class="mi">3</span><span class="p">).</span><span class="n">to_list</span><span class="p">())</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">drop</span><span class="p">([</span><span class="s">'epse1'</span><span class="p">,</span><span class="s">'epse2'</span><span class="p">,</span><span class="s">'epse3'</span><span class="p">,</span><span class="s">'netprofite1'</span><span class="p">,</span><span class="s">'netprofite2'</span><span class="p">,</span><span class="s">'netprofite3'</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">list_of_cols_to_expand</span> <span class="o">=</span> <span class="p">[</span><span class="s">'eps'</span><span class="p">,</span><span class="s">'netprofit'</span><span class="p">,</span><span class="s">'report_period'</span><span class="p">]</span>
+    <span class="n">outputdf_expandedcols</span><span class="o">=</span><span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="n">col</span><span class="p">:</span><span class="n">df</span><span class="p">.</span><span class="nb">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">pd</span><span class="p">.</span><span class="n">Series</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">col</span><span class="p">]),</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">).</span><span class="n">stack</span><span class="p">(</span><span class="n">dropna</span><span class="o">=</span><span class="bp">False</span><span class="p">).</span><span class="n">reset_index</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">list_of_cols_to_expand</span>
+    <span class="p">})</span>
+    <span class="n">outputdf</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s">'date'</span><span class="p">,</span><span class="s">'organization'</span><span class="p">,</span><span class="s">'researcher'</span><span class="p">]].</span><span class="n">join</span><span class="p">(</span><span class="n">outputdf_expandedcols</span><span class="p">,</span><span class="n">how</span><span class="o">=</span><span class="s">"right"</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">outputdf</span>
+</code></pre></div></div>
+
+                    </section>
+                </div>
+
+                 <!--<div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+                    <a href="/finance_api/instruction/2021-12-07-how-akshare.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Akshare instruction">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+            </div>
+
+            <script>
+            var gitbook = gitbook || [];
+            gitbook.push(function() {
+                gitbook.page.hasChanged({
+    "page": {
+        "title": "Introduction",
+        "level": "1.1",
+        "depth": 1,
+        
+        "dir": "ltr"
+    },    "config": {
+        "plugins": ["fontsettings", "highlight", "livereload", "lunr", "search", "sharing", "theme-default", "livereload"],
+        "styles": {
+            "ebook": "styles/ebook.css",
+            "epub": "styles/epub.css",
+            "mobi": "styles/mobi.css",
+            "pdf": "styles/pdf.css",
+            "print": "styles/print.css",
+            "website": "styles/website.css"
+        },
+        "pluginsConfig": {
+            "fontsettings": {
+                "family": "sans",
+                "size": 2,
+                "theme": "white"
+            },
+            "highlight": {},
+            "livereload": {},
+            "lunr": {
+                "ignoreSpecialCharacters": false,
+                "maxIndexSize": 1000000
+            },
+            "search": {},
+            "sharing": {
+                "all": ["facebook", "google", "twitter", "weibo", "instapaper"],
+                "facebook": true,
+                "google": false,
+                "instapaper": false,
+                "twitter": true,
+                "vk": false,
+                "weibo": false
+            },
+            "theme-default": {
+                "showLevel": false,
+                "styles": {
+                    "ebook": "styles/ebook.css",
+                    "epub": "styles/epub.css",
+                    "mobi": "styles/mobi.css",
+                    "pdf": "styles/pdf.css",
+                    "print": "styles/print.css",
+                    "website": "styles/website.css"
+                }
+            }
+        },
+        "theme": "default",
+        "author": "Tao He",
+        "pdf": {
+            "pageNumbers": true,
+            "fontSize": 12,
+            "fontFamily": "Arial",
+            "paperSize": "a4",
+            "chapterMark": "pagebreak",
+            "pageBreaksBefore": "/",
+            "margin": {
+                "right": 62,
+                "left": 62,
+                "top": 56,
+                "bottom": 56
+            }
+        },
+        "structure": {
+            "langs": "LANGS.md",
+            "readme": "README.md",
+        },
+        "variables": {},
+        "title": "finance api",
+        "language": "en",
+        "gitbook": "*"
+    },
+    "file": {
+        "path": "_posts/wind/2021-12-09-est_API_RD_convert.md",
+        "mtime": "2021-12-09 14:16:00 +0800",
+        "type": "markdown"
+    },
+    "gitbook": {
+        "version": "3.2.9",
+        "time": "2021-12-09 14:29:24 +0800"
+    },
+    "basePath": "/finance_api",
+    "book": {
+        "language": ""
+    }
+});
+            });
+            </script>
+        </div><script src="/finance_api/gitbook/gitbook.js"></script>
+<script src="/finance_api/gitbook/theme.js"></script>
+
+<script src="/finance_api/gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+<script src="/finance_api/gitbook/gitbook-plugin-sharing/buttons.js"></script>
+
+<!-- <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+<script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search.js"></script> -->
+
+</body>
+</html>

@@ -1,27 +1,27 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Why qpython · python q</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="description" content="My gitbook for docing q, kdb.
-"><meta name="generator" content="Jekyll (using style of GitBook 3.2.9)"><meta name="author" content="Tao Sun"><link rel="stylesheet" href="/python-q/gitbook/style.css">
-<link rel="stylesheet" href="/python-q/gitbook/gitbook-plugin-fontsettings/website.css">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Akshare instruction · finance api</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="description" content="My notes on using different apis available in china. 
+"><meta name="generator" content="Jekyll (using style of GitBook 3.2.9)"><meta name="author" content="Tao Sun"><link rel="stylesheet" href="/finance_api/gitbook/style.css">
+<link rel="stylesheet" href="/finance_api/gitbook/gitbook-plugin-fontsettings/website.css">
 <!-- <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css"> -->
 
-<link rel="stylesheet" href="/python-q/gitbook/rouge-highlight-colorful.css">
+<link rel="stylesheet" href="/finance_api/gitbook/rouge-highlight-colorful.css">
 
 <meta name="HandheldFriendly" content="true"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
-<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/python-q/gitbook/images/apple-touch-icon-precomposed-152.png">
-<link rel="shortcut icon" href="/python-q/gitbook/images/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/finance_api/gitbook/images/apple-touch-icon-precomposed-152.png">
+<link rel="shortcut icon" href="/finance_api/gitbook/images/favicon.ico" type="image/x-icon">
 
 
-            <link rel="prev" href="/python-q/" />
+            <link rel="prev" href="/finance_api/instruction/2021-12-07-how-wind.html" />
         
 
         
-            <link rel="next" href="/python-q/qpython/2021-12-06-how-qpython.html" />
+            <link rel="next" href="/finance_api/wind/2021-12-09-est_API_RD_convert.html" />
         
     </head>
     <body>
@@ -32,10 +32,10 @@
     <nav role="navigation">
         <ul class="summary">
             
-            <li class="chapter" data-level="1.1" data-path="/python-q">
+            <li class="chapter" data-level="1.1" data-path="/finance_api">
             
-                <a href="/python-q/">
-                    python q
+                <a href="/finance_api/">
+                    finance api
                 </a>
             </li>
 
@@ -43,7 +43,7 @@
 
             <!-- search link -->
             <li>
-                <a href="/python-q/search">
+                <a href="/finance_api/search">
                     Search
                 </a>
             </li>
@@ -54,24 +54,41 @@
                 
                 
                     
-                    <li class="chapter active" data-level="1.2" data-path="/python-q/qpython/2021-12-06-why-qpython.html">
+                    <li class="chapter" data-level="1.1" data-path="/finance_api/instruction/2021-12-07-how-wind.html">
                     
-                        <a href="/python-q/qpython/2021-12-06-why-qpython.html">
-                            Why qpython
+                        <a href="/finance_api/instruction/2021-12-07-how-wind.html">
+                            Wind Instruction
                         </a>
                         
-                            
-                                <ul><li><a href="#为什么使用-qpython">为什么使用 qpython</a></li></ul>
-
                             
                         
                     </li>
                 
                     
-                    <li class="chapter" data-level="1.1" data-path="/python-q/qpython/2021-12-06-how-qpython.html">
+                    <li class="chapter active" data-level="1.2" data-path="/finance_api/instruction/2021-12-07-how-akshare.html">
                     
-                        <a href="/python-q/qpython/2021-12-06-how-qpython.html">
-                            How to use qpython
+                        <a href="/finance_api/instruction/2021-12-07-how-akshare.html">
+                            Akshare instruction
+                        </a>
+                        
+                            
+                                <ul><li><a href="#怎么使用akshare">怎么使用akshare</a></li><li><a href="#数据比对">数据比对</a><ul><li><a href="#基金持仓数据比对">基金持仓数据比对</a></li></ul></li></ul>
+
+                            
+                        
+                    </li>
+                
+
+                <li class="divider"></li>
+                
+            
+                
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/finance_api/wind/2021-12-09-est_API_RD_convert.html">
+                    
+                        <a href="/finance_api/wind/2021-12-09-est_API_RD_convert.html">
+                            API RD difference
                         </a>
                         
                             
@@ -90,7 +107,7 @@
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >Why qpython</a>
+                <a href="." >Akshare instruction</a>
             
         </h1>
     </div>
@@ -101,34 +118,63 @@
                     <section class="normal markdown-section">
 
                         
-                            <h1 id="/qpython/why-qpython">Why qpython</h1>
+                            <h1 id="/instruction/how-akshare">Akshare instruction</h1>
                         
 
-                        <h1 id="为什么使用-qpython">为什么使用 qpython</h1>
-<p>1.更快</p>
+                        <h2 id="怎么使用akshare">怎么使用akshare</h2>
 
-<p>    相比于使用 pyodbc来实现python对<a href="http://www.timestored.com/kdb-guides/kdb-tick-data-store">tdb</a>数据的访问，使用qpython更加迅速。</p>
+<ol>
+  <li>
+    <p>安装相关库</p>
 
-<p>2.支持嵌入q语句</p>
+    <p>akshare 的安装过程相对简单很多</p>
 
-<p>    在实际运行中，需要在python端实现调用q脚本等操作，qpython支持q语言嵌入。</p>
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pip</span> <span class="n">install</span> <span class="n">akshare</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>在官方文库搜索相关的文档和函数</p>
 
-<p>3.版本支持完善</p>
+    <p>以 基金持仓为例：</p>
 
-<p>    q的免费版本为32bit，而实际使用过程中，多使用64位的python，相较于其他python和q交互需要额外配置，qpython直接通过:</p>
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="n">ak</span>
+<span class="n">fund_portfolio_hold_em_df</span> <span class="o">=</span> <span class="n">ak</span><span class="p">.</span><span class="n">fund_portfolio_hold_em</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="s">"000001"</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="s">"2020"</span><span class="p">)</span>
+</code></pre></div>    </div>
 
-<pre><code class="language-cmd">pip install qpython
-</code></pre>
-<p>4.多支持</p>
+    <p><img src="C:\Users\tao.sun\AppData\Roaming\Typora\typora-user-images\image-20211207141706565.png" alt="image-20211207141706565" /></p>
+  </li>
+</ol>
 
-<p>    实际使用中，会有</p>
-<ul>
-  <li><a href="https://qpython.readthedocs.io/en/latest/usage-examples.html">q端下载数据后, 在python端计算的场景</a></li>
-  <li>python端下载python api数据，在python端计算的场景</li>
-  <li><a href="https://stackoverflow.com/questions/59956842/how-can-i-commit-a-dataframe-to-kdb-as-a-new-table">python端处理所有数据，在q端计算的场景</a></li>
-</ul>
+<h2 id="数据比对">数据比对</h2>
 
-<p>为了满足以上需求，qpython提供了 Qconnection方法，以便两端传递数据.</p>
+<h3 id="基金持仓数据比对">基金持仓数据比对</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Wind</th>
+      <th>Akshare</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>调用方法</td>
+      <td>w.wset()</td>
+      <td>ak.fund_portfolio_hold_em()</td>
+    </tr>
+    <tr>
+      <td>对应字段</td>
+      <td>+ 占股票投资市值百分比<br />+ 持股占流通股比</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>一致性</td>
+      <td>数据基本一致，有小数点差异</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
 
 
                     </section>
@@ -148,13 +194,13 @@
     </div>
 </div>
 
-                    <a href="/python-q/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: python q">
+                    <a href="/finance_api/instruction/2021-12-07-how-wind.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Wind Instruction">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a href="/python-q/qpython/2021-12-06-how-qpython.html" class="navigation navigation-next navigation-unique" aria-label="Next page: How to use qpython">
+                    <a href="/finance_api/wind/2021-12-09-est_API_RD_convert.html" class="navigation navigation-next navigation-unique" aria-label="Next page: API RD difference">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
@@ -170,11 +216,11 @@
         "depth": 1,
         
         "next": {
-            "title": "How to use qpython",
+            "title": "API RD difference",
             "level": "1.2",
             "depth": 1,
-            "path": "_posts/2021-12-06-how-qpython.md",
-            "ref": "_posts/2021-12-06-how-qpython.md",
+            "path": "_posts/wind/2021-12-09-est_API_RD_convert.md",
+            "ref": "_posts/wind/2021-12-09-est_API_RD_convert.md",
             "articles": []
         },
         
@@ -244,31 +290,31 @@
             "readme": "README.md",
         },
         "variables": {},
-        "title": "python q",
+        "title": "finance api",
         "language": "en",
         "gitbook": "*"
     },
     "file": {
-        "path": "_posts/2021-12-06-why-qpython.md",
-        "mtime": "2021-12-06 16:30:00 +0800",
+        "path": "_posts/akshare/2021-12-07-how-akshare.md",
+        "mtime": "2021-12-07 13:54:00 +0800",
         "type": "markdown"
     },
     "gitbook": {
         "version": "3.2.9",
-        "time": "2021-12-06 16:38:32 +0800"
+        "time": "2021-12-09 14:29:24 +0800"
     },
-    "basePath": "/python-q",
+    "basePath": "/finance_api",
     "book": {
         "language": ""
     }
 });
             });
             </script>
-        </div><script src="/python-q/gitbook/gitbook.js"></script>
-<script src="/python-q/gitbook/theme.js"></script>
+        </div><script src="/finance_api/gitbook/gitbook.js"></script>
+<script src="/finance_api/gitbook/theme.js"></script>
 
-<script src="/python-q/gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
-<script src="/python-q/gitbook/gitbook-plugin-sharing/buttons.js"></script>
+<script src="/finance_api/gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+<script src="/finance_api/gitbook/gitbook-plugin-sharing/buttons.js"></script>
 
 <!-- <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
 <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>

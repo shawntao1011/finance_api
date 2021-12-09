@@ -1,0 +1,43 @@
+I"�<h2 id="如何使用wind-api">如何使用wind API</h2>
+<ol>
+  <li>
+    <p>修复插件</p>
+
+    <p>点击wind终端 左上角”我的” –&gt; “插件修复” –&gt; “修复python接口”</p>
+  </li>
+  <li>调用wind.start()
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kn">from</span> <span class="nn">WindPy</span> <span class="kn">import</span> <span class="n">w</span> <span class="k">as</span> <span class="n">wind</span>
+ <span class="n">wd</span> <span class="o">=</span> <span class="n">wind</span><span class="p">.</span><span class="n">start</span><span class="p">()</span>
+ <span class="k">assert</span> <span class="mi">0</span> <span class="o">==</span> <span class="n">wd</span><span class="p">.</span><span class="n">ErrorCode</span><span class="p">,</span>\
+         <span class="sa">f</span><span class="s">"WindQuantAPI login error </span><span class="si">{</span><span class="n">wd</span><span class="p">.</span><span class="n">ErrorCode</span><span class="si">}</span><span class="s">: </span><span class="si">{</span><span class="n">wd</span><span class="p">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s">"</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>调用wind相关函数
+ 根据Wind CG(code generator) 生成相关函数的format，再自定义parse相关参数。</p>
+
+    <p>eg: 假设需要获取某个基金(000001.OF)的日收益率数据，
+ WIND CG中的代码示例则如下:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> w.wsd("000001.OF", "NAV_adj_return1", "2021-11-07", "2021-12-06", "")
+</code></pre></div>    </div>
+    <p>那么实际的python 代码为</p>
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">w</span><span class="p">.</span><span class="n">wsd</span><span class="p">(</span><span class="s">"000001.OF"</span><span class="p">,</span> <span class="s">"NAV_adj_return1"</span><span class="p">,</span> <span class="s">"2021-11-07"</span><span class="p">,</span> <span class="s">"2021-12-06"</span><span class="p">,</span> <span class="s">""</span><span class="p">,</span> <span class="n">usedfdt</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> 
+</code></pre></div>    </div>
+    <p>其中，usedfdt 参数用于 确保返回是一个pd.Dataframe 且 空的时间字段会作为pd.NaT返回，而不是dt.datetime(1899,12,31)</p>
+  </li>
+</ol>
+
+<h2 id="wind-接口解读">Wind 接口解读</h2>
+
+<p>    wind 的数据接口主要限制在三个维度:</p>
+<ol>
+  <li>Days</li>
+  <li>Indicators</li>
+  <li>WindCodes</li>
+</ol>
+
+<p><img src="C:\Users\tao.sun\AppData\Roaming\Typora\typora-user-images\image-20211207134715381.png" alt="image-20211207134715381" style="transform: rotate(-90deg); zoom: 25%;" /></p>
+
+<p>在单次的query中，在以上三个维度至少需要一个维度为 1(1天，1个变量或一个股票)。</p>
+
+:ET

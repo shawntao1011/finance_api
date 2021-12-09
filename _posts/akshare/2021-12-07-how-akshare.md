@@ -1,8 +1,8 @@
 ---
-title: how to use akshare
+title: Akshare instruction
 author: Tao Sun
 date: 2021-12-07 13:54:00 +0800
-category: akshare
+category: Instruction
 layout: post
 ---
 

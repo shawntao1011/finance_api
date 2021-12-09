@@ -1,0 +1,56 @@
+I"w<h2 id="怎么使用akshare">怎么使用akshare</h2>
+
+<ol>
+  <li>
+    <p>安装相关库</p>
+
+    <p>akshare 的安装过程相对简单很多</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pip</span> <span class="n">install</span> <span class="n">akshare</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>在官方文库搜索相关的文档和函数</p>
+
+    <p>以 基金持仓为例：</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="n">ak</span>
+<span class="n">fund_portfolio_hold_em_df</span> <span class="o">=</span> <span class="n">ak</span><span class="p">.</span><span class="n">fund_portfolio_hold_em</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="s">"000001"</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="s">"2020"</span><span class="p">)</span>
+</code></pre></div>    </div>
+
+    <p><img src="C:\Users\tao.sun\AppData\Roaming\Typora\typora-user-images\image-20211207141706565.png" alt="image-20211207141706565" /></p>
+  </li>
+</ol>
+
+<h2 id="数据比对">数据比对</h2>
+
+<h3 id="基金持仓数据比对">基金持仓数据比对</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Wind</th>
+      <th>Akshare</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>调用方法</td>
+      <td>w.wset()</td>
+      <td>ak.fund_portfolio_hold_em()</td>
+    </tr>
+    <tr>
+      <td>对应字段</td>
+      <td>+ 占股票投资市值百分比<br />+ 持股占流通股比</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>一致性</td>
+      <td>数据基本一致，有小数点差异</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+:ET

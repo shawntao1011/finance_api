@@ -1,0 +1,140 @@
+I"=%<h2 id="est-一致预期数据">est 一致预期数据</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wind API中的一致预期数据 和 RD中AShareEarningEst的数据格式 并不相符
+
+需要有代码做转换， 并且转换后数据并不完全等价
+</code></pre></div></div>
+
+<h3 id="api">API</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>一致预期数据需要使用 wset 进行下载
+</code></pre></div></div>
+
+<p><strong>参数列表</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>参数名称</th>
+      <th>参数值</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>startdate</td>
+      <td>20xx-xx-xx</td>
+    </tr>
+    <tr>
+      <td>endtdate</td>
+      <td>20xx-xx-xx</td>
+    </tr>
+    <tr>
+      <td>windcode</td>
+      <td>xxxxxx.SH(SZ)</td>
+    </tr>
+    <tr>
+      <td>organization</td>
+      <td>全部</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>输出字段</strong>
+| 中文名称 | 英文名称 |
+| – | – |
+| 预测日期 | date |
+| 研究机构 | organization |
+| <font color="red">研究员</font> | researcher |
+| 评级 | rating |
+| 目标价 | target_price |
+| 每股收益a0 | epsa0 |
+| 每股收益e1 | epse1 |
+| 每股收益e2 | epse2 |
+| 每股收益e3 | epse3 |
+| 营业总收入a0 | incomea0 |
+| 营业总收入e1 | incomee1 |
+| 营业总收入e2 | incomee2 |
+| 营业总收入e3 | incomee3 |
+| 净利润a0 | netprofita0 |
+| 净利润e1 | netprofite1 |
+| 净利润e2 | netprofite2 |
+| 净利润e3 | netprofite3 |
+| 市盈率a0 | pea0 |
+| 市盈率e1 | pee1 |
+| 市盈率e2 | pee2 |
+| 市盈率e3 | pee3 |
+| 净资产收益率a0 | roea0 |
+| 净资产收益率e1 | roee1 |
+| 净资产收益率e2 | roee2 |
+| 净资产收益率e3 | roee3 |
+| 最新年报年度 | _year |</p>
+
+<p>Sample code:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">err</span><span class="p">,</span> <span class="n">df</span> <span class="o">=</span> <span class="n">wind</span><span class="p">.</span><span class="n">wset</span><span class="p">(</span><span class="s">'stockwest'</span><span class="p">,</span><span class="sa">f</span><span class="s">"startdate=</span><span class="si">{</span><span class="n">start</span><span class="p">:</span><span class="o">%</span><span class="n">Y</span><span class="o">-%</span><span class="n">m</span><span class="o">-%</span><span class="n">d</span><span class="si">}</span><span class="s">;enddate=       </span><span class="si">{</span><span class="n">end</span><span class="p">:</span><span class="o">%</span><span class="n">Y</span><span class="o">-%</span><span class="n">m</span><span class="o">-%</span><span class="n">d</span><span class="si">}</span><span class="s">;windcode=</span><span class="si">{</span><span class="n">stock</span><span class="si">}</span><span class="s">;orgname=全部;</span><span class="se">\
+</span><span class="s">field=date,organization,researcher,epse1,epse2,epse3,netprofite1,netprofite2,netprofite3"</span><span class="p">,</span> <span class="n">usedfdt</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="rd">RD</h3>
+
+<p><strong>匹配字段名</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>字段名</th>
+      <th>对应API 字段</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>EST_DT</td>
+      <td>date</td>
+    </tr>
+    <tr>
+      <td>RESEARCH_INST_NAME</td>
+      <td>organization</td>
+    </tr>
+    <tr>
+      <td><font color="red">ANALYST_NAME</font></td>
+      <td>researcher</td>
+    </tr>
+    <tr>
+      <td>REPORTING_PERIOD</td>
+      <td>*e[123]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>多出字段</strong>
+| 字段名 | 字段名介绍 |
+| – | – |
+| EST_MAIN_BUS_INCE | 预测主营业务收入 |
+…..</p>
+
+<h4 id="转换规则"><strong>转换规则</strong></h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>在WIND API中的 epse[123] 数据 在RD中由"eps"部分和report_period列共同构建。
+
+即 假设是2020年的数据， 在API中 一行 三列的数据epse1, epse2 ,epse3
+
+会由 RD 中三行两列数据 数据 report_period: 2020 +1, 2020 +2 , 2020 +3 以及 eps ： val1, val2, val3 代替。
+</code></pre></div></div>
+
+<h2 id="转换代码">转换代码</h2>
+<p>Sample</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">reshape_wsetest</span><span class="p">(</span><span class="n">raw_df</span><span class="p">):</span>
+    <span class="s">'''
+    将wset 获取到的dataframe 转换成 RD 中 ashareearningest的格式
+    '''</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">raw_df</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">df</span><span class="p">[</span><span class="s">'eps'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s">'epse1'</span><span class="p">,</span><span class="s">'epse2'</span><span class="p">,</span><span class="s">'epse3'</span><span class="p">]].</span><span class="n">values</span><span class="p">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">df</span><span class="p">[</span><span class="s">'netprofit'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s">'netprofite1'</span><span class="p">,</span><span class="s">'netprofite2'</span><span class="p">,</span><span class="s">'netprofite3'</span><span class="p">]].</span><span class="n">values</span><span class="p">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">df</span><span class="p">[</span><span class="s">'report_period'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">date</span><span class="p">.</span><span class="nb">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span><span class="n">pd</span><span class="p">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">d</span><span class="p">,</span><span class="n">freq</span><span class="o">=</span><span class="s">'Y'</span><span class="p">,</span><span class="n">periods</span><span class="o">=</span><span class="mi">3</span><span class="p">).</span><span class="n">to_list</span><span class="p">())</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">drop</span><span class="p">([</span><span class="s">'epse1'</span><span class="p">,</span><span class="s">'epse2'</span><span class="p">,</span><span class="s">'epse3'</span><span class="p">,</span><span class="s">'netprofite1'</span><span class="p">,</span><span class="s">'netprofite2'</span><span class="p">,</span><span class="s">'netprofite3'</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">list_of_cols_to_expand</span> <span class="o">=</span> <span class="p">[</span><span class="s">'eps'</span><span class="p">,</span><span class="s">'netprofit'</span><span class="p">,</span><span class="s">'report_period'</span><span class="p">]</span>
+    <span class="n">outputdf_expandedcols</span><span class="o">=</span><span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="n">col</span><span class="p">:</span><span class="n">df</span><span class="p">.</span><span class="nb">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">pd</span><span class="p">.</span><span class="n">Series</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">col</span><span class="p">]),</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">).</span><span class="n">stack</span><span class="p">(</span><span class="n">dropna</span><span class="o">=</span><span class="bp">False</span><span class="p">).</span><span class="n">reset_index</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">list_of_cols_to_expand</span>
+    <span class="p">})</span>
+    <span class="n">outputdf</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s">'date'</span><span class="p">,</span><span class="s">'organization'</span><span class="p">,</span><span class="s">'researcher'</span><span class="p">]].</span><span class="n">join</span><span class="p">(</span><span class="n">outputdf_expandedcols</span><span class="p">,</span><span class="n">how</span><span class="o">=</span><span class="s">"right"</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">outputdf</span>
+</code></pre></div></div>
+:ET
