@@ -107,3 +107,9 @@ def reshape_wsetest(raw_df):
 
     return outputdf
 ```
+
+## 结论
+
+ - RD数据库的 AShareEarningEst 数据是 API的 **超集**
+ - API数据可以通过相关转换变成RD表的格式
+ - API获取的数据中，researcher可能是 ***， 对应映射到RD中则是有实际人名的
