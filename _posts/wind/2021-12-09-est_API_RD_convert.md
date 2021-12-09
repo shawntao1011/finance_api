@@ -78,7 +78,7 @@ field=date,organization,researcher,epse1,epse2,epse3,netprofite1,netprofite2,net
 | 字段名 | 字段名介绍 |
 | -- | -- |
 | EST_MAIN_BUS_INCE | 预测主营业务收入 |
-.....
+| .. | .. |
 
 #### **转换规则**
     在WIND API中的 epse[123] 数据 在RD中由"eps"部分和report_period列共同构建。
