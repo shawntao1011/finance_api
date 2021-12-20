@@ -25,7 +25,7 @@ layout: post
    fund_portfolio_hold_em_df = ak.fund_portfolio_hold_em(code="000001", year="2020")
    ```
 
-   ![image-20211207141706565](C:\Users\tao.sun\AppData\Roaming\Typora\typora-user-images\image-20211207141706565.png)
+   ![image-20211207141706565](..\assets\images\image-20211207141706565.png)
 
 ## 数据比对
 
